@@ -10,6 +10,10 @@ let processedImages = new Set();
 
 // Load settings
 chrome.runtime.sendMessage({ action: 'getSettings' }, (response) => {
+  if (chrome.runtime.lastError) {
+    console.error('Error loading settings:', chrome.runtime.lastError);
+    return;
+  }
   if (response) {
     settings = response;
     if (settings.isEnabled) {
@@ -35,6 +39,13 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 });
 
 function startMonitoring() {
+  // Check if document.body is available
+  if (!document.body) {
+    console.warn('Document body not available, waiting...');
+    document.addEventListener('DOMContentLoaded', startMonitoring, { once: true });
+    return;
+  }
+  
   // Monitor existing images
   checkExistingImages();
   
@@ -55,9 +66,6 @@ function startMonitoring() {
     childList: true,
     subtree: true
   });
-  
-  // Also monitor background images
-  monitorBackgroundImages();
 }
 
 function checkExistingImages() {
@@ -96,36 +104,4 @@ function processImageIfLargeEnough(img) {
       imageSize: { width, height }
     });
   }
-}
-
-function monitorBackgroundImages() {
-  const elements = document.querySelectorAll('*');
-  elements.forEach((element) => {
-    const bgImage = window.getComputedStyle(element).backgroundImage;
-    if (bgImage && bgImage !== 'none') {
-      const urlMatch = bgImage.match(/url\(['"]?([^'"]+)['"]?\)/);
-      if (urlMatch && urlMatch[1]) {
-        const imageUrl = urlMatch[1];
-        if (!processedImages.has(imageUrl)) {
-          // Create a temporary image to check dimensions
-          const tempImg = new Image();
-          tempImg.onload = function() {
-            const width = this.width;
-            const height = this.height;
-            const minSize = settings.minSize || 600;
-            
-            if (width >= minSize || height >= minSize) {
-              processedImages.add(imageUrl);
-              chrome.runtime.sendMessage({
-                action: 'downloadImage',
-                imageUrl: imageUrl,
-                imageSize: { width, height }
-              });
-            }
-          };
-          tempImg.src = imageUrl;
-        }
-      }
-    }
-  });
 }

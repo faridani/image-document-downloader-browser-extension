@@ -54,12 +54,7 @@ async function handleImageDownload(imageUrl, imageSize) {
     // Check if image is large enough
     if (imageSize.width >= minSize || imageSize.height >= minSize) {
       // Extract file extension from URL
-      let extension = 'png';
-      const urlMatch = imageUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)(\?|$)/i);
-      if (urlMatch) {
-        extension = urlMatch[1].toLowerCase();
-        if (extension === 'jpeg') extension = 'jpg';
-      }
+      const extension = getFileExtension(imageUrl);
       
       const filename = `img-${imageCounter}.${extension}`;
       const downloadPath = settings.destinationFolder ? 
@@ -81,6 +76,17 @@ async function handleImageDownload(imageUrl, imageSize) {
   } catch (error) {
     console.error('Error downloading image:', error);
   }
+}
+
+// Helper function to extract file extension
+function getFileExtension(url) {
+  let extension = 'png';
+  const urlMatch = url.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)(\?|$)/i);
+  if (urlMatch) {
+    extension = urlMatch[1].toLowerCase();
+    if (extension === 'jpeg') extension = 'jpg';
+  }
+  return extension;
 }
 
 // Listen for storage changes

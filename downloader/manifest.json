@@ -5,8 +5,7 @@
   "description": "Automatically download images larger than a specified size",
   "permissions": [
     "storage",
-    "downloads",
-    "webRequest"
+    "downloads"
   ],
   "host_permissions": [
     "<all_urls>"

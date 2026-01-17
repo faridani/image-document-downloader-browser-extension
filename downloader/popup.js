@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const minSize = parseInt(minSizeInput.value);
     const destinationFolder = destinationFolderInput.value.trim();
     
-    if (isNaN(minSize) || minSize < 1) {
-      showStatus('Please enter a valid minimum size', false);
+    if (!validateMinSize(minSize)) {
+      showStatus('Please enter a valid minimum size (must be at least 1)', false);
       return;
     }
     
@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
       showStatus('Settings saved successfully!');
     });
   });
+  
+  // Reset counter validation helper
+  function validateMinSize(size) {
+    return !isNaN(size) && size >= 1;
+  }
   
   // Handle reset counter button
   resetBtn.addEventListener('click', function() {
