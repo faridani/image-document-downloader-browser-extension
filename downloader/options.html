@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Downloader Monitor Options</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+        color: #1f2937;
+      }
+      h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 600;
+      }
+      input {
+        margin-top: 6px;
+        padding: 8px;
+        width: 280px;
+        max-width: 100%;
+      }
+      button {
+        margin-top: 16px;
+        padding: 8px 14px;
+        font-weight: 600;
+      }
+      .status {
+        margin-top: 12px;
+        color: #0f766e;
+      }
+      .hint {
+        font-size: 12px;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Downloader Monitor Options</h1>
+    <p class="hint">Tune the minimum size and destination folder for saved images.</p>
+
+    <label for="minSize">Minimum image size (px)</label>
+    <input id="minSize" type="number" min="1" step="1" />
+
+    <label for="folder">Destination folder</label>
+    <input id="folder" type="text" placeholder="downloaded-images" />
+    <p class="hint">Folder is relative to your default downloads directory.</p>
+
+    <button id="save">Save</button>
+    <div class="status" id="status" role="status"></div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

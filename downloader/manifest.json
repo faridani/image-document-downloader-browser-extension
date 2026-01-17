@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Image Downloader Monitor",
+  "version": "1.0.0",
+  "description": "Monitors visited pages for images and saves large ones in sequence.",
+  "permissions": ["downloads", "storage", "webRequest"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Image Downloader Monitor"
+  }
+}
