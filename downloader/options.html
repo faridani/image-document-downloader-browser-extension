@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Size Downloader Settings</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+        max-width: 560px;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-top: 16px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        box-sizing: border-box;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 16px;
+      }
+
+      .status {
+        margin-top: 12px;
+        color: #0b6b0b;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Size Downloader</h1>
+    <p>Set the minimum image dimension and download folder.</p>
+
+    <label for="minSize">Minimum size (px)</label>
+    <input id="minSize" type="number" min="1" />
+
+    <label for="destinationFolder">Destination folder</label>
+    <input id="destinationFolder" type="text" placeholder="downloaded-images" />
+
+    <button id="save">Save</button>
+    <div id="status" class="status" role="status"></div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
