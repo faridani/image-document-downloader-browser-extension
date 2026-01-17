@@ -1,0 +1,15 @@
+{
+  "name": "Image Document Downloader",
+  "description": "Monitors downloaded images and saves large images into a sequenced folder.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "permissions": ["downloads", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Image Downloader"
+  }
+}
