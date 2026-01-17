@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Image Downloader",
+  "version": "1.0.0",
+  "description": "Monitors image downloads and saves large images in sequence.",
+  "permissions": ["downloads", "storage", "webRequest"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Downloader Settings</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+        max-width: 520px;
+      }
+      label {
+        display: block;
+        margin-top: 16px;
+        font-weight: 600;
+      }
+      input {
+        margin-top: 8px;
+        padding: 6px 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 20px;
+        padding: 8px 12px;
+      }
+      .status {
+        margin-top: 12px;
+        color: #2c7a2c;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Downloader Settings</h1>
+    <p>Images with a width or height greater than or equal to the minimum size will be saved.</p>
+
+    <label for="minSize">Minimum size (px)</label>
+    <input id="minSize" type="number" min="1" />
+
+    <label for="folder">Destination folder</label>
+    <input id="folder" type="text" />
+
+    <button id="save">Save settings</button>
+    <div class="status" id="status" role="status"></div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
