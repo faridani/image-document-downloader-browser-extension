@@ -22,7 +22,7 @@ A powerful Chrome extension that automatically downloads images larger than a sp
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable **Developer mode** (toggle in top-right corner)
 4. Click **Load unpacked**
-5. Select the `downloader` folder from this repository
+5. Select the repository folder
 6. The extension icon should appear in your toolbar
 
 For detailed installation instructions, see [INSTALLATION.md](INSTALLATION.md).
