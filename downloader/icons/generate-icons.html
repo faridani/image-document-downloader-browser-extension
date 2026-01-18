@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Icon Generator - Image Downloader Extension</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { color: #1a73e8; }
+    .icon-preview {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .icon-item {
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .icon-item canvas {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .icon-item p {
+      margin: 10px 0 0;
+      font-size: 14px;
+      color: #666;
+    }
+    button {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+    button:hover { background: #1557b0; }
+    .instructions {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .instructions ol { padding-left: 20px; }
+    .instructions li { margin-bottom: 10px; }
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Downloader Icon Generator</h1>
+  <p>Generate PNG icons for the Chrome extension.</p>
+
+  <div class="icon-preview" id="preview"></div>
+
+  <button onclick="generateIcons()">Generate Icons</button>
+  <button onclick="downloadAll()">Download All Icons</button>
+
+  <div class="instructions">
+    <h3>Instructions</h3>
+    <ol>
+      <li>Click <strong>Generate Icons</strong> to create the icon images</li>
+      <li>Click <strong>Download All Icons</strong> to save them</li>
+      <li>Move the downloaded files to the <code>downloader/icons/</code> folder</li>
+      <li>Reload the extension in <code>chrome://extensions/</code></li>
+    </ol>
+    <p><strong>Note:</strong> The icons show a download arrow on a blue background, representing the Image Downloader functionality.</p>
+  </div>
+
+  <script>
+    const sizes = [16, 32, 48, 128];
+    const canvases = {};
+
+    function generateIcons() {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+
+      sizes.forEach(size => {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Blue background with rounded corners effect
+        ctx.fillStyle = '#1a73e8';
+        ctx.fillRect(0, 0, size, size);
+
+        // Draw download arrow icon
+        ctx.fillStyle = 'white';
+        ctx.strokeStyle = 'white';
+
+        const scale = size / 128;
+        const centerX = size / 2;
+        const centerY = size / 2;
+
+        // Arrow body (vertical rectangle)
+        const arrowWidth = 24 * scale;
+        const arrowHeight = 50 * scale;
+        ctx.fillRect(
+          centerX - arrowWidth / 2,
+          centerY - arrowHeight / 2 - 10 * scale,
+          arrowWidth,
+          arrowHeight
+        );
+
+        // Arrow head (triangle pointing down)
+        const triangleWidth = 50 * scale;
+        const triangleHeight = 30 * scale;
+        ctx.beginPath();
+        ctx.moveTo(centerX - triangleWidth / 2, centerY + 10 * scale);
+        ctx.lineTo(centerX + triangleWidth / 2, centerY + 10 * scale);
+        ctx.lineTo(centerX, centerY + 10 * scale + triangleHeight);
+        ctx.closePath();
+        ctx.fill();
+
+        // Bottom line (representing destination)
+        ctx.lineWidth = Math.max(2, 4 * scale);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(centerX - 35 * scale, centerY + 45 * scale);
+        ctx.lineTo(centerX + 35 * scale, centerY + 45 * scale);
+        ctx.stroke();
+
+        canvases[size] = canvas;
+
+        // Add to preview
+        const item = document.createElement('div');
+        item.className = 'icon-item';
+        item.appendChild(canvas);
+        const label = document.createElement('p');
+        label.textContent = `${size}x${size}px`;
+        item.appendChild(label);
+        preview.appendChild(item);
+      });
+    }
+
+    function downloadAll() {
+      sizes.forEach(size => {
+        if (!canvases[size]) {
+          alert('Please generate icons first!');
+          return;
+        }
+        const link = document.createElement('a');
+        link.download = `icon${size}.png`;
+        link.href = canvases[size].toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    // Auto-generate on load
+    generateIcons();
+  </script>
+</body>
+</html>
