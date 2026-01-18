@@ -1,5 +1,10 @@
 # Image Downloader - Chrome Extension
 
+
+> [!TIP]
+> This extension is useful for downloading long PDF documents that are converted to a sequence of images by the website to make it hard to download. The extension can download the individual pages for you and you can use a command line tool like `ImageMagic` or `img2pdf` to stitch them together in a PDF
+>
+
 A powerful Chrome extension that automatically downloads images larger than a specified size while you browse the web. Perfect for collecting reference images, wallpapers, or building image datasets.
 
 ## Features
