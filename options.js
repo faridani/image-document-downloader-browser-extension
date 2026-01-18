@@ -10,6 +10,23 @@ const counterDiv = document.getElementById('counter');
 // Load settings when options page opens
 document.addEventListener('DOMContentLoaded', loadSettings);
 
+// Auto-save when toggle is changed
+enabledCheckbox.addEventListener('change', async () => {
+  try {
+    const result = await chrome.storage.local.get(['settings']);
+    const settings = result.settings || {
+      minSize: 600,
+      destinationFolder: 'downloaded-images'
+    };
+    settings.enabled = enabledCheckbox.checked;
+    await chrome.storage.local.set({ settings: settings });
+    showStatus(settings.enabled ? 'Downloads enabled' : 'Downloads disabled', 'success');
+  } catch (error) {
+    console.error('Failed to save toggle state:', error);
+    showStatus('Failed to save setting', 'error');
+  }
+});
+
 async function loadSettings() {
   try {
     // Load settings from storage
